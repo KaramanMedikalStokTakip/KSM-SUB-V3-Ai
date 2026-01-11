@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../App';
 import { getCurrencyRates } from '../lib/api';
 import { Button } from './ui/button';
-import { LayoutDashboard, Package, ShoppingCart, Users, FileText, Calendar as CalendarIcon, Settings as SettingsIcon, LogOut, Menu, X, DollarSign, Euro, TrendingUp } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, Users, FileText, Calendar as CalendarIcon, Settings as SettingsIcon, LogOut, Menu, X, DollarSign, Euro, TrendingUp, Fuel, Bitcoin } from 'lucide-react';
 
 function Layout({ children }) {
   const { user, logout } = useAuth();
