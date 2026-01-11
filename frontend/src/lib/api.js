@@ -234,6 +234,133 @@ export const getProductFilters = async () => {
 };
 
 // ============================================
+// BULK PRICE UPDATE FUNCTIONS
+// ============================================
+
+/**
+ * Preview bulk price update - Shows what will be updated without actually updating
+ * @param {Object} filters - { category, brand }
+ * @param {string} priceType - 'purchase' | 'sale' | 'both'
+ * @param {number} percentageChange - Percentage to change (positive for increase, negative for decrease)
+ * @returns {Object} - { affectedCount, examples, filters }
+ */
+export const previewBulkPriceUpdate = async (filters, priceType, percentageChange) => {
+  try {
+    let query = supabase.from('products').select('*');
+
+    // Apply filters
+    if (filters.category && filters.category !== '') {
+      query = query.eq('category', filters.category);
+    }
+    if (filters.brand && filters.brand !== '') {
+      query = query.ilike('brand', `%${filters.brand}%`);
+    }
+
+    const { data: products, error } = await query;
+
+    if (error) throw error;
+
+    const multiplier = 1 + (percentageChange / 100);
+    
+    // Calculate examples (first 5 products)
+    const examples = products.slice(0, 5).map(product => {
+      const result = {
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        category: product.category,
+      };
+
+      if (priceType === 'purchase' || priceType === 'both') {
+        result.old_purchase_price = product.purchase_price;
+        result.new_purchase_price = parseFloat((product.purchase_price * multiplier).toFixed(2));
+      }
+
+      if (priceType === 'sale' || priceType === 'both') {
+        result.old_sale_price = product.sale_price;
+        result.new_sale_price = parseFloat((product.sale_price * multiplier).toFixed(2));
+      }
+
+      return result;
+    });
+
+    return {
+      affectedCount: products.length,
+      examples,
+      filters,
+      priceType,
+      percentageChange
+    };
+  } catch (error) {
+    console.error('Preview error:', error);
+    throw error;
+  }
+};
+
+/**
+ * Bulk update product prices
+ * @param {Object} filters - { category, brand }
+ * @param {string} priceType - 'purchase' | 'sale' | 'both'
+ * @param {number} percentageChange - Percentage to change (positive for increase, negative for decrease)
+ * @returns {Object} - { updatedCount, message }
+ */
+export const bulkUpdateProductPrices = async (filters, priceType, percentageChange) => {
+  try {
+    // First, get all products that match the filters
+    let query = supabase.from('products').select('*');
+
+    // Apply filters
+    if (filters.category && filters.category !== '') {
+      query = query.eq('category', filters.category);
+    }
+    if (filters.brand && filters.brand !== '') {
+      query = query.ilike('brand', `%${filters.brand}%`);
+    }
+
+    const { data: products, error: fetchError } = await query;
+
+    if (fetchError) throw fetchError;
+
+    if (!products || products.length === 0) {
+      throw new Error('Filtre kriterlerine uygun ürün bulunamadı');
+    }
+
+    const multiplier = 1 + (percentageChange / 100);
+    let updatedCount = 0;
+
+    // Update each product
+    for (const product of products) {
+      const updates = {};
+
+      if (priceType === 'purchase' || priceType === 'both') {
+        updates.purchase_price = parseFloat((product.purchase_price * multiplier).toFixed(2));
+      }
+
+      if (priceType === 'sale' || priceType === 'both') {
+        updates.sale_price = parseFloat((product.sale_price * multiplier).toFixed(2));
+      }
+
+      const { error: updateError } = await supabase
+        .from('products')
+        .update(updates)
+        .eq('id', product.id);
+
+      if (!updateError) {
+        updatedCount++;
+      }
+    }
+
+    return {
+      updatedCount,
+      message: `${updatedCount} ürünün fiyatı başarıyla güncellendi`
+    };
+  } catch (error) {
+    console.error('Bulk update error:', error);
+    throw error;
+  }
+};
+
+// ============================================
 // CUSTOMERS FUNCTIONS
 // ============================================
 
