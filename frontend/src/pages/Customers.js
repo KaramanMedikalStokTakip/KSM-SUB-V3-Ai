@@ -273,38 +273,71 @@ function Customers() {
         ))}
       </div>
 
-      <Dialog open={purchasesDialogOpen} onOpenChange={setPurchasesDialogOpen}>
-        <DialogContent className="max-w-3xl">
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="max-w-xl">
           <DialogHeader>
-            <DialogTitle>{selectedCustomer?.name} - Satın Alma Geçmişi</DialogTitle>
+            <DialogTitle>Müşteri Bilgilerini Düzenle</DialogTitle>
           </DialogHeader>
-          <div className="space-y-3 max-h-[60vh] overflow-y-auto">
-            {purchases.length === 0 ? (
-              <p className="text-center text-gray-500 py-8">Henüz satın alma yok</p>
-            ) : (
-              purchases.map((purchase) => (
-                <Card key={purchase.id}>
-                  <CardContent className="pt-4">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <p className="text-sm text-gray-500">{new Date(purchase.created_at).toLocaleDateString('tr-TR')}</p>
-                        <p className="text-sm text-gray-600">Ödeme: {purchase.payment_method === 'nakit' ? 'Nakit' : 'Kredi Kartı'}</p>
-                      </div>
-                      <p className="text-xl font-bold text-green-600">₺{purchase.final_amount.toFixed(2)}</p>
-                    </div>
-                    <div className="space-y-1">
-                      {purchase.items.map((item, idx) => (
-                        <div key={idx} className="text-sm flex justify-between">
-                          <span>{item.name} x {item.quantity}</span>
-                          <span>₺{item.total.toFixed(2)}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </div>
+          <form onSubmit={handleEditSubmit} className="space-y-4">
+            <div>
+              <Label>Ad Soyad *</Label>
+              <Input
+                value={editFormData.name}
+                onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
+                required
+                data-testid="edit-customer-name-input"
+              />
+            </div>
+            <div>
+              <Label>Telefon *</Label>
+              <Input
+                value={editFormData.phone}
+                onChange={(e) => setEditFormData({ ...editFormData, phone: e.target.value })}
+                required
+                data-testid="edit-customer-phone-input"
+              />
+            </div>
+            <div>
+              <Label>E-posta</Label>
+              <Input
+                type="email"
+                value={editFormData.email}
+                onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
+                data-testid="edit-customer-email-input"
+              />
+            </div>
+            <div>
+              <Label>Adres</Label>
+              <Textarea
+                value={editFormData.address}
+                onChange={(e) => setEditFormData({ ...editFormData, address: e.target.value })}
+                data-testid="edit-customer-address-input"
+                placeholder="Müşteri adresi"
+              />
+            </div>
+            <div>
+              <Label>Notlar</Label>
+              <Textarea
+                value={editFormData.notes}
+                onChange={(e) => setEditFormData({ ...editFormData, notes: e.target.value })}
+                data-testid="edit-customer-notes-input"
+                placeholder="Notlar"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button type="submit" className="flex-1" data-testid="update-customer-btn">
+                Güncelle
+              </Button>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => setEditDialogOpen(false)}
+                className="flex-1"
+              >
+                İptal
+              </Button>
+            </div>
+          </form>
         </DialogContent>
       </Dialog>
     </div>
