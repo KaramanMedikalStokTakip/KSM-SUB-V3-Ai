@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../App';
 import { toast } from 'sonner';
 import { getProductFilters, getTopSellingProducts, getTopProfitProducts, getStockReport } from '../lib/api';
 import { formatCurrency } from '../lib/utils';
