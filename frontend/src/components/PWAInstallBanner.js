@@ -13,14 +13,16 @@ const PWAInstallBanner = () => {
       return;
     }
 
-    // Check if user dismissed banner
+    // Check if user permanently dismissed banner
     const dismissed = localStorage.getItem('pwa-install-dismissed');
-    if (dismissed) {
-      const dismissedTime = parseInt(dismissed);
-      const daysSinceDismissed = (Date.now() - dismissedTime) / (1000 * 60 * 60 * 24);
-      if (daysSinceDismissed < 7) {
-        return; // Don't show for 7 days after dismiss
-      }
+    if (dismissed === 'permanent') {
+      return; // Don't show if permanently dismissed
+    }
+
+    // Check if banner was shown in this browser session
+    const sessionDismissed = sessionStorage.getItem('pwa-banner-shown');
+    if (sessionDismissed === 'true') {
+      return; // Don't show again in same session
     }
 
     // Listen for install prompt
@@ -28,6 +30,8 @@ const PWAInstallBanner = () => {
       e.preventDefault();
       setDeferredPrompt(e);
       setShowBanner(true);
+      // Mark as shown in this session
+      sessionStorage.setItem('pwa-banner-shown', 'true');
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -37,6 +41,8 @@ const PWAInstallBanner = () => {
       setIsInstalled(true);
       setShowBanner(false);
       setDeferredPrompt(null);
+      // Mark as permanently dismissed after install
+      localStorage.setItem('pwa-install-dismissed', 'permanent');
     };
 
     window.addEventListener('appinstalled', handleAppInstalled);
@@ -69,7 +75,8 @@ const PWAInstallBanner = () => {
 
   const handleDismiss = () => {
     setShowBanner(false);
-    localStorage.setItem('pwa-install-dismissed', Date.now().toString());
+    // Set permanent flag - banner will never show again unless user clears localStorage
+    localStorage.setItem('pwa-install-dismissed', 'permanent');
   };
 
   if (isInstalled || !showBanner) {
