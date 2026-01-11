@@ -464,6 +464,21 @@ function Settings() {
                     </SelectContent>
                   </Select>
                 </div>
+                <div>
+                  <Label>Şube *</Label>
+                  <Select 
+                    value={editUser.branch} 
+                    onValueChange={(value) => setEditUser({ ...editUser, branch: value })}
+                  >
+                    <SelectTrigger data-testid="edit-branch-select">
+                      <SelectValue placeholder="Şube seçin" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="KARAMAN Şubesi">KARAMAN Şubesi</SelectItem>
+                      <SelectItem value="MUT Şubesi">MUT Şubesi</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
                 <Button type="submit" className="w-full" data-testid="submit-edit-user-btn">
                   Değişiklikleri Kaydet
                 </Button>
