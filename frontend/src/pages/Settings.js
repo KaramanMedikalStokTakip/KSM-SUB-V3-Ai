@@ -173,6 +173,7 @@ function Settings() {
       if (editUser.email !== editingUser.email) updateData.email = editUser.email;
       if (editUser.password) updateData.password = editUser.password; // Sadece doldurulduysa
       if (editUser.role !== editingUser.role) updateData.role = editUser.role;
+      if (editUser.branch !== editingUser.branch) updateData.branch = editUser.branch;
 
       await updateUser(editingUser.id, updateData);
       toast.success('Kullanıcı başarıyla güncellendi');
