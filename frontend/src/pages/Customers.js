@@ -16,12 +16,18 @@ function Customers() {
   const [customers, setCustomers] = useState([]);
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [purchases, setPurchases] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [purchasesDialogOpen, setPurchasesDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    notes: ''
+  });
+  const [editFormData, setEditFormData] = useState({
     name: '',
     phone: '',
     email: '',
