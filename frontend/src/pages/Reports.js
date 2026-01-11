@@ -632,7 +632,7 @@ function Reports() {
                         <span className="font-medium">{idx + 1}. {item.product_name}</span>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-green-600">₺{item.total_profit?.toFixed(2)}</p>
+                        <p className="font-semibold text-green-600">{formatCurrency(item.total_profit || 0)}</p>
                         <p className="text-sm text-gray-500">{item.total_quantity} adet satıldı</p>
                       </div>
                     </div>
