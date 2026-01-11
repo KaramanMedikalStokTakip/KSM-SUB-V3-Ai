@@ -382,7 +382,7 @@ function Settings() {
                   <div key={u.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                     <div>
                       <p className="font-medium">{u.username}</p>
-                      <p className="text-sm text-gray-500">{u.email || 'E-posta yok'} - {u.role}</p>
+                      <p className="text-sm text-gray-500">{u.email || 'E-posta yok'} - {u.role} - {u.branch || 'Şube belirlenmemiş'}</p>
                     </div>
                     <div className="flex gap-2">
                       <Button
