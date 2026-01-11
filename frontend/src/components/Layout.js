@@ -164,6 +164,18 @@ function Layout({ children }) {
               <TrendingUp className="w-4 h-4" />
               <span>Gümüş: ₺{currency.silver_try}</span>
             </div>
+            <div className="currency-item">
+              <Fuel className="w-4 h-4" />
+              <span>Petrol: ${currency.oil_try}</span>
+            </div>
+            <div className="currency-item">
+              <Bitcoin className="w-4 h-4" />
+              <span>BTC: ₺{currency.btc_try?.toLocaleString('tr-TR')}</span>
+            </div>
+            <div className="currency-item">
+              <Bitcoin className="w-4 h-4" />
+              <span>ETH: ₺{currency.eth_try?.toLocaleString('tr-TR')}</span>
+            </div>
             {/* Duplicate for seamless loop */}
             <div className="currency-item">
               <DollarSign className="w-4 h-4" />
@@ -180,6 +192,18 @@ function Layout({ children }) {
             <div className="currency-item">
               <TrendingUp className="w-4 h-4" />
               <span>Gümüş: ₺{currency.silver_try}</span>
+            </div>
+            <div className="currency-item">
+              <Fuel className="w-4 h-4" />
+              <span>Petrol: ${currency.oil_try}</span>
+            </div>
+            <div className="currency-item">
+              <Bitcoin className="w-4 h-4" />
+              <span>BTC: ₺{currency.btc_try?.toLocaleString('tr-TR')}</span>
+            </div>
+            <div className="currency-item">
+              <Bitcoin className="w-4 h-4" />
+              <span>ETH: ₺{currency.eth_try?.toLocaleString('tr-TR')}</span>
             </div>
           </div>
         </div>
