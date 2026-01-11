@@ -26,7 +26,7 @@ Kategori: ${category || 'Medikal Ürün'}
 Açıklama Türkçe olmalı, ürünün özelliklerini, kullanım alanlarını ve faydalarını içermeli.`;
     
     const response = await genAI.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       contents: prompt
     });
     
