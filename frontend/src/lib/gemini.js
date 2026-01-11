@@ -17,7 +17,7 @@ const genAI = new GoogleGenerativeAI(API_KEY);
  */
 export const generateProductDescription = async (productName, brand = '', category = '') => {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     const prompt = `Sen bir medikal ürün uzmanısın. Aşağıdaki ürün için profesyonel ve bilgilendirici bir açıklama yaz (maksimum 150 kelime):
 
