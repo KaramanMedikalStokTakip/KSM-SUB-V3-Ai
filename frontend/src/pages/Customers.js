@@ -75,13 +75,16 @@ function Customers() {
     }
   };
 
-  const fetchCustomerPurchases = async (customerId) => {
-    try {
-      const data = await getCustomerPurchases(customerId);
-      setPurchases(data);
-    } catch (error) {
-      toast.error('Satın almalar yüklenemedi');
-    }
+  const openEditDialog = (customer) => {
+    setSelectedCustomer(customer);
+    setEditFormData({
+      name: customer.name || '',
+      phone: customer.phone || '',
+      email: customer.email || '',
+      address: customer.address || '',
+      notes: customer.notes || ''
+    });
+    setEditDialogOpen(true);
   };
 
   const handleSubmit = async (e) => {
@@ -97,10 +100,17 @@ function Customers() {
     }
   };
 
-  const viewPurchases = async (customer) => {
-    setSelectedCustomer(customer);
-    await fetchCustomerPurchases(customer.id);
-    setPurchasesDialogOpen(true);
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateCustomer(selectedCustomer.id, editFormData);
+      toast.success('Müşteri bilgileri güncellendi');
+      fetchCustomers();
+      setEditDialogOpen(false);
+      setSelectedCustomer(null);
+    } catch (error) {
+      toast.error('Güncelleme başarısız: ' + error.message);
+    }
   };
 
   const handleDelete = async (customerId) => {
