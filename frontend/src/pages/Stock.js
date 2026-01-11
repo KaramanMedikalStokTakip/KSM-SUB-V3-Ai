@@ -39,6 +39,19 @@ function Stock() {
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  
+  // Bulk Price Update States
+  const [bulkPriceDialogOpen, setBulkPriceDialogOpen] = useState(false);
+  const [bulkPriceFilters, setBulkPriceFilters] = useState({
+    category: '',
+    brand: ''
+  });
+  const [bulkPriceType, setBulkPriceType] = useState('both'); // 'purchase' | 'sale' | 'both'
+  const [bulkPercentage, setBulkPercentage] = useState(0);
+  const [bulkPreviewLoading, setBulkPreviewLoading] = useState(false);
+  const [bulkUpdateLoading, setBulkUpdateLoading] = useState(false);
+  const [bulkPreview, setBulkPreview] = useState(null);
+  
   const [formData, setFormData] = useState({
     name: '',
     barcode: '',
