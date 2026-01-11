@@ -635,37 +635,12 @@ export const getCurrencyRates = async () => {
 // AI DESCRIPTION GENERATION (VIA BACKEND)
 // ============================================
 
+// Import Gemini AI utility
+import { generateProductDescription as generateWithGemini } from './gemini';
+
 export const generateProductDescription = async (productName, brand, category) => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
-  
   try {
-    const response = await fetch(
-      `${backendUrl}/api/generate-description`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          product_name: productName,
-          brand: brand || '',
-          category: category || ''
-        })
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(`Backend hatası: ${response.status} - ${errorData.detail || 'Bilinmeyen hata'}`);
-    }
-
-    const data = await response.json();
-    
-    if (data.success && data.description) {
-      return data.description.trim();
-    } else {
-      throw new Error(data.error || 'AI yanıt üretelemedi');
-    }
+    return await generateWithGemini(productName, brand, category);
   } catch (error) {
     console.error('AI açıklama hatası:', error);
     throw new Error('AI açıklama oluşturulamadı: ' + error.message);
