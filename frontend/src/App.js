@@ -74,7 +74,7 @@ function App() {
       if (event === 'SIGNED_IN' && session?.user) {
         const { data: userData } = await supabase
           .from('users')
-          .select('id, username, email, role, created_at')
+          .select('id, username, email, role, branch, created_at')
           .eq('id', session.user.id)
           .single();
         
