@@ -34,7 +34,7 @@ function App() {
           // Fetch user details from users table
           const { data: userData, error } = await supabase
             .from('users')
-            .select('id, username, email, role, created_at')
+            .select('id, username, email, role, branch, created_at')
             .eq('id', session.user.id)
             .single();
           
