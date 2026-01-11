@@ -146,23 +146,45 @@ export const getAllProducts = async () => {
   return data;
 };
 
-export const getProductByBarcode = async (barcode, branch = null) => {
+export const getProductByBarcode = async (barcode, userBranch = null) => {
   let query = supabase
     .from('products')
     .select('*')
     .eq('barcode', barcode);
-  
-  // Eğer branch belirtilmişse, sadece o şubeyi filtrele
-  if (branch) {
-    query = query.eq('branch', branch);
-  }
   
   const { data, error } = await query;
 
   if (error) throw new Error('Ürün bulunamadı');
   if (!data || data.length === 0) throw new Error('Ürün bulunamadı');
   
-  // Eğer tek sonuç varsa direkt döndür
+  // Eğer kullanıcının şubesi belirtilmişse
+  if (userBranch) {
+    // Kullanıcının şubesindeki ürünü bul
+    const userBranchProduct = data.find(p => p.branch === userBranch);
+    
+    // Diğer şubelerdeki ürünleri bul
+    const otherBranchProducts = data.filter(p => p.branch !== userBranch);
+    
+    // Eğer kullanıcının şubesinde ürün varsa
+    if (userBranchProduct) {
+      return userBranchProduct;
+    }
+    
+    // Kullanıcının şubesinde yok ama başka şubede varsa
+    if (otherBranchProducts.length > 0) {
+      return {
+        notInBranch: true,
+        userBranch: userBranch,
+        otherBranchProducts: otherBranchProducts,
+        message: `Bu ürün ${otherBranchProducts[0].branch} şubesinde bulunuyor, ${userBranch} şubesinde stokta yok!`
+      };
+    }
+    
+    // Hiç ürün bulunamadı
+    throw new Error('Ürün bulunamadı');
+  }
+  
+  // Şube belirtilmemişse (eski davranış)
   if (data.length === 1) {
     return data[0];
   }
