@@ -15,6 +15,7 @@ import { Html5Qrcode } from 'html5-qrcode';
 const COLORS = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'];
 
 function Dashboard() {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [lowStock, setLowStock] = useState([]);
@@ -42,12 +43,21 @@ function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
+      // Admin ise şube filtresi yok, normal kullanıcı ise kendi şubesinin verilerini göster
+      const branchFilter = user?.role === 'yönetici' ? null : user?.branch;
+      
       const [statsData, lowStockData] = await Promise.all([
-        getDashboardStats(),
+        getDashboardStats(branchFilter),
         getLowStockProducts()
       ]);
+      
+      // Eğer admin değilse low stock'u da filtreliyoruz
+      const filteredLowStock = user?.role === 'yönetici' 
+        ? lowStockData 
+        : lowStockData.filter(p => p.branch === user?.branch);
+      
       setStats(statsData);
-      setLowStock(lowStockData);
+      setLowStock(filteredLowStock);
     } catch (error) {
       console.error('Dashboard data fetch error:', error);
       toast.error('Dashboard verileri yüklenemedi');
