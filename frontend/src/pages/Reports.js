@@ -16,11 +16,15 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 function Reports() {
+  const { user } = useAuth();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [topSelling, setTopSelling] = useState([]);
   const [topProfit, setTopProfit] = useState([]);
   const [loading, setLoading] = useState(false);
+  
+  // Şube filtresi (admin için)
+  const [selectedBranch, setSelectedBranch] = useState('');
   
   // Stok raporu için state'ler
   const [brands, setBrands] = useState([]);
