@@ -513,6 +513,71 @@ function Stock() {
     setProductDetailDialogOpen(true);
   };
 
+  // Bulk Price Update Functions
+  const handleBulkPreview = async () => {
+    if (!bulkPriceFilters.category && !bulkPriceFilters.brand) {
+      toast.error('Lütfen en az bir filtre kriteri seçin (Kategori veya Marka)');
+      return;
+    }
+
+    if (bulkPercentage === 0) {
+      toast.error('Lütfen geçerli bir yüzdelik değer girin');
+      return;
+    }
+
+    setBulkPreviewLoading(true);
+    try {
+      const preview = await previewBulkPriceUpdate(
+        bulkPriceFilters,
+        bulkPriceType,
+        bulkPercentage
+      );
+      setBulkPreview(preview);
+      toast.success(`${preview.affectedCount} ürün etkilenecek`);
+    } catch (error) {
+      console.error('Preview error:', error);
+      toast.error('Önizleme yüklenemedi');
+    } finally {
+      setBulkPreviewLoading(false);
+    }
+  };
+
+  const handleBulkUpdate = async () => {
+    if (!bulkPreview) {
+      toast.error('Lütfen önce önizleme yapın');
+      return;
+    }
+
+    if (!window.confirm(`${bulkPreview.affectedCount} ürünün fiyatı güncellenecek. Emin misiniz?`)) {
+      return;
+    }
+
+    setBulkUpdateLoading(true);
+    try {
+      const result = await bulkUpdateProductPrices(
+        bulkPriceFilters,
+        bulkPriceType,
+        bulkPercentage
+      );
+      toast.success(result.message);
+      setBulkPriceDialogOpen(false);
+      resetBulkPriceForm();
+      fetchProducts(); // Refresh product list
+    } catch (error) {
+      console.error('Bulk update error:', error);
+      toast.error('Toplu güncelleme başarısız: ' + error.message);
+    } finally {
+      setBulkUpdateLoading(false);
+    }
+  };
+
+  const resetBulkPriceForm = () => {
+    setBulkPriceFilters({ category: '', brand: '' });
+    setBulkPriceType('both');
+    setBulkPercentage(0);
+    setBulkPreview(null);
+  };
+
   if (loading && products.length === 0) {
     return (
       <div className="flex items-center justify-center h-96">
