@@ -727,31 +727,44 @@ export const getTopProfitProducts = async (startDate, endDate, limit = 10) => {
 
 export const getCurrencyRates = async () => {
   try {
-    // Get currency rates
-    const currencyResponse = await fetch('https://api.exchangerate-api.com/v4/latest/TRY');
-    const currencyData = await currencyResponse.json();
-    const rates = currencyData.rates;
+    // Get currency rates from GenelPara API
+    const response = await fetch('https://api.genelpara.com/json/?list=doviz&sembol=all');
+    const data = await response.json();
 
-    const usd_try = Math.round((1 / rates.USD) * 100) / 100;
-    const eur_try = Math.round((1 / rates.EUR) * 100) / 100;
+    if (!response.ok || !data) {
+      throw new Error('API yanıt hatası');
+    }
 
-    // Get metal prices
-    const metalPrices = await getMetalPrices();
+    // Parse the API response
+    const usd = data.find(item => item.sembol === 'USD');
+    const eur = data.find(item => item.sembol === 'EUR');
+    const gold = data.find(item => item.sembol === 'ONS' || item.sembol === 'GA'); // Altın (Ons veya Gram Altın)
+    const silver = data.find(item => item.sembol === 'GUMUS');
+    const oil = data.find(item => item.sembol === 'BRENT'); // Brent Petrol
+    const btc = data.find(item => item.sembol === 'BTC');
+    const eth = data.find(item => item.sembol === 'ETH');
 
     return {
-      usd_try,
-      eur_try,
-      gold_try: metalPrices.gold_try,
-      silver_try: metalPrices.silver_try,
+      usd_try: usd ? parseFloat(usd.satis) : 35.50,
+      eur_try: eur ? parseFloat(eur.satis) : 38.20,
+      gold_try: gold ? parseFloat(gold.satis) : 2800.0,
+      silver_try: silver ? parseFloat(silver.satis) : 32.5,
+      oil_try: oil ? parseFloat(oil.satis) : 85.0,
+      btc_try: btc ? parseFloat(btc.satis) : 3500000,
+      eth_try: eth ? parseFloat(eth.satis) : 125000,
       timestamp: new Date().toISOString()
     };
   } catch (error) {
     console.error('Kur bilgisi hatası:', error);
+    // Fallback values
     return {
       usd_try: 35.50,
       eur_try: 38.20,
       gold_try: 2800.0,
       silver_try: 32.5,
+      oil_try: 85.0,
+      btc_try: 3500000,
+      eth_try: 125000,
       timestamp: new Date().toISOString()
     };
   }
