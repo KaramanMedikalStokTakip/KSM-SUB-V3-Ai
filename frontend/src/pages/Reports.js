@@ -430,7 +430,7 @@ function Reports() {
                   </div>
                   <div className="bg-purple-50 p-4 rounded-lg">
                     <p className="text-sm text-gray-600">Toplam Değer</p>
-                    <p className="text-2xl font-bold text-purple-600">₺{(stockReport.summary?.total_value || 0).toFixed(2)}</p>
+                    <p className="text-2xl font-bold text-purple-600">{formatCurrency(stockReport.summary?.total_value || 0)}</p>
                   </div>
                 </div>
 
