@@ -103,9 +103,13 @@
 #====================================================================================================
 
 user_problem_statement: |
-  Backend klasörünü kaldır ve uygulamayı tamamen Supabase üzerinde çalışacak şekilde yapılandır.
-  AI ürün açıklaması özelliği için Gemini API kullan.
-  Authentication Supabase Auth ile entegre et.
+  1. KSM-SUB-V3-main klasörünü değerlendirme ve silme (gereksiz eski dosyalar)
+  2. Toplu fiyat güncelleme özelliği ekleme:
+     - Yöneticiler kategoriye ve/veya markaya göre toplu fiyat güncellemesi yapabilsin
+     - Yüzdelik dilim ile artış/azalış
+     - Hem alış hem satış fiyatları güncellenebilsin
+     - Önizleme + onay mekanizması
+     - Sadece admin kullanıcılar için
 
 backend:
   - task: "Backend klasörü kaldırma"
