@@ -87,13 +87,26 @@ Açıklama Türkçe olmalı, ürünün özelliklerini, kullanım alanlarını ve
         # Get response
         response = await chat.send_message(user_message)
         
+        # Extract text from response
+        description_text = ""
+        if isinstance(response, str):
+            description_text = response
+        elif hasattr(response, 'text'):
+            description_text = response.text
+        elif hasattr(response, 'content'):
+            description_text = response.content
+        else:
+            description_text = str(response)
+        
         return ProductDescriptionResponse(
-            description=response.strip(),
+            description=description_text.strip(),
             success=True
         )
         
     except Exception as e:
         print(f"Error generating description: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return ProductDescriptionResponse(
             description="",
             success=False,
