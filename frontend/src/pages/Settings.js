@@ -142,11 +142,11 @@ function Settings() {
   const handleAddUser = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(newUser.username, newUser.email || '', newUser.password, newUser.role);
+      await registerUser(newUser.username, newUser.email || '', newUser.password, newUser.role, newUser.branch);
       toast.success('Kullanıcı başarıyla eklendi');
       fetchUsers();
       setDialogOpen(false);
-      setNewUser({ username: '', password: '', role: 'depo' });
+      setNewUser({ username: '', password: '', role: 'depo', branch: 'KARAMAN Şubesi' });
     } catch (error) {
       toast.error(error.message || 'Kullanıcı eklenemedi');
     }
