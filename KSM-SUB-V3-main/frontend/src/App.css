@@ -1,0 +1,684 @@
+.loading-spinner {
+  border: 3px solid rgba(59, 130, 246, 0.3);
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.currency-ticker {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.currency-scroll {
+  display: flex;
+  gap: 3rem;
+  animation: scroll-left 20s linear infinite;
+  padding: 0 1rem;
+}
+
+.currency-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.barcode-focus {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+.card-hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: scale(1.02);
+}
+
+/* Mobil İyileştirmeler */
+@media (max-width: 640px) {
+  .currency-ticker {
+    padding: 0.25rem 0;
+  }
+  
+  .currency-scroll {
+    gap: 2rem;
+  }
+  
+  .currency-item {
+    font-size: 0.75rem;
+    gap: 0.25rem;
+  }
+}
+
+/* Touch-friendly butonlar - İkon butonları hariç */
+@media (max-width: 1024px) {
+  button:not([aria-label="Close"]):not([aria-label="Kapat"]):not([aria-label="Toggle theme"]):not([aria-label="Şifreyi göster"]):not([aria-label="Şifreyi gizle"]):not([data-testid="toggle-password-btn"]), 
+  a:not([aria-label="Close"]):not([aria-label="Kapat"]) {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* İkon butonları için override */
+  button[aria-label="Close"],
+  button[aria-label="Kapat"],
+  button[aria-label="Toggle theme"],
+  button[aria-label="Şifreyi göster"],
+  button[aria-label="Şifreyi gizle"],
+  button[data-testid="toggle-password-btn"],
+  button:has(svg.lucide-x) {
+    min-height: auto !important;
+    min-width: auto !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 6px !important;
+  }
+}
+
+/* Mobilde scroll gizle */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 4px;
+  }
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #e5e5e5;
+}
+
+/* Tüm text elementleri için dark mode */
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode div,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode label,
+body.dark-mode li,
+body.dark-mode td,
+body.dark-mode th {
+  color: #e5e5e5;
+}
+
+/* Input ve form elementleri */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder,
+body.dark-mode select::placeholder {
+  color: #9ca3af !important;
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+  border-color: #3b82f6 !important;
+  background-color: #1f1f1f !important;
+  ring-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Background renkleri */
+body.dark-mode .bg-white {
+  background-color: #1f1f1f !important;
+}
+
+body.dark-mode .bg-gray-50 {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .bg-gray-100 {
+  background-color: #333333 !important;
+}
+
+body.dark-mode .bg-gray-200 {
+  background-color: #404040 !important;
+}
+
+/* Text renkleri - Kapsamlı */
+body.dark-mode .text-black,
+body.dark-mode .text-gray-700,
+body.dark-mode .text-gray-800,
+body.dark-mode .text-gray-900 {
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode .text-gray-500,
+body.dark-mode .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .text-gray-400 {
+  color: #6b7280 !important;
+}
+
+body.dark-mode .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+/* Border renkleri */
+body.dark-mode .border-gray-200,
+body.dark-mode .border-gray-300,
+body.dark-mode .border-gray-400 {
+  border-color: #404040 !important;
+}
+
+/* Card ve stat card'lar */
+body.dark-mode .stat-card {
+  background: #1f1f1f !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode .currency-ticker {
+  background: linear-gradient(135deg, #4c5fd7 0%, #5c3b82 100%);
+}
+
+/* Dialog ve modal'lar */
+body.dark-mode [role="dialog"],
+body.dark-mode .card,
+body.dark-mode .modal {
+  background-color: #1f1f1f !important;
+  border-color: #404040 !important;
+  color: #e5e5e5 !important;
+}
+
+/* Button'lar - Dark mode gradient desteği */
+body.dark-mode button[class*="from-blue"][class*="to-indigo"] {
+  /* Primary gradient butonlar dark mode'da daha parlak */
+  background: linear-gradient(to right, #3b82f6, #6366f1) !important;
+}
+
+body.dark-mode button[class*="from-blue"][class*="to-indigo"]:hover {
+  background: linear-gradient(to right, #2563eb, #4f46e5) !important;
+}
+
+body.dark-mode button[class*="from-red"] {
+  /* Destructive gradient butonlar */
+  background: linear-gradient(to right, #ef4444, #dc2626) !important;
+}
+
+body.dark-mode button[class*="from-red"]:hover {
+  background: linear-gradient(to right, #dc2626, #b91c1c) !important;
+}
+
+/* Outline ve secondary butonlar dark mode */
+body.dark-mode button[class*="border-gray"] {
+  background-color: #2d2d2d !important;
+  border-color: #4b5563 !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode button[class*="border-gray"]:hover {
+  background-color: #374151 !important;
+  border-color: #6b7280 !important;
+}
+
+body.dark-mode button[class*="bg-gray"] {
+  background-color: #374151 !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode button[class*="bg-gray"]:hover {
+  background-color: #4b5563 !important;
+}
+
+/* İkon butonları dark mode - TAMAMEN TRANSPARAN */
+body.dark-mode button[aria-label="Close"],
+body.dark-mode button[aria-label="Kapat"],
+body.dark-mode button[aria-label="Toggle theme"],
+body.dark-mode button[aria-label="Şifreyi göster"],
+body.dark-mode button[aria-label="Şifreyi gizle"],
+body.dark-mode button[data-testid="toggle-password-btn"],
+body.dark-mode button:has(svg.lucide-x) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: auto !important;
+  min-width: auto !important;
+}
+
+body.dark-mode button[aria-label="Close"]:hover,
+body.dark-mode button[aria-label="Kapat"]:hover,
+body.dark-mode button[data-testid="toggle-password-btn"]:hover,
+body.dark-mode button:has(svg.lucide-x):hover {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Table elementleri */
+body.dark-mode table {
+  background-color: #1f1f1f !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode thead {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode tbody tr {
+  border-color: #404040 !important;
+}
+
+body.dark-mode tbody tr:hover {
+  background-color: #2d2d2d !important;
+}
+
+/* Badge ve tag'ler */
+body.dark-mode .badge,
+body.dark-mode .tag {
+  background-color: #333333 !important;
+  color: #e5e5e5 !important;
+}
+
+/* Link'ler */
+body.dark-mode a:not(.text-blue-600):not(.text-red-600) {
+  color: #60a5fa !important;
+}
+
+body.dark-mode a:hover:not(.text-blue-600):not(.text-red-600) {
+  color: #93c5fd !important;
+}
+
+/* Hover states */
+body.dark-mode .hover\:bg-gray-50:hover {
+  background-color: #2d2d2d !important;
+}
+
+body.dark-mode .hover\:bg-gray-100:hover {
+  background-color: #333333 !important;
+}
+
+/* Scrollbar dark mode */
+body.dark-mode ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #1a1a1a;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background-color: #404040;
+  border-radius: 4px;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background-color: #525252;
+}
+
+/* Dropdown ve select menüler */
+body.dark-mode option {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+}
+
+/* SVG icon'lar ve lucide iconlar */
+body.dark-mode svg {
+  color: inherit;
+}
+
+/* Dashboard stat card ikonları için özel renkler */
+body.dark-mode .bg-blue-100 {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+body.dark-mode .bg-orange-100 {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+body.dark-mode .bg-green-100 {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+}
+
+body.dark-mode .bg-purple-100 {
+  background-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+body.dark-mode .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+body.dark-mode .bg-yellow-100 {
+  background-color: rgba(234, 179, 8, 0.2) !important;
+}
+
+/* İkon renkleri dark mode'da parlak olmalı */
+body.dark-mode .text-blue-600 {
+  color: #60a5fa !important;
+}
+
+body.dark-mode .text-orange-600 {
+  color: #fb923c !important;
+}
+
+body.dark-mode .text-green-600 {
+  color: #4ade80 !important;
+}
+
+body.dark-mode .text-purple-600 {
+  color: #c084fc !important;
+}
+
+body.dark-mode .text-red-600 {
+  color: #f87171 !important;
+}
+
+body.dark-mode .text-yellow-600 {
+  color: #facc15 !important;
+}
+
+/* Disabled elementler */
+body.dark-mode input:disabled,
+body.dark-mode textarea:disabled,
+body.dark-mode select:disabled,
+body.dark-mode button:disabled {
+  opacity: 0.5;
+  background-color: #262626 !important;
+  color: #6b7280 !important;
+}
+
+/* Checkbox ve radio button dark mode */
+body.dark-mode input[type="checkbox"],
+body.dark-mode input[type="radio"] {
+  background-color: #2d2d2d !important;
+  border-color: #4b5563 !important;
+}
+
+body.dark-mode input[type="checkbox"]:checked,
+body.dark-mode input[type="radio"]:checked {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+/* Takvim dark mode */
+body.dark-mode .rdp {
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode .rdp-caption_label {
+  color: #e5e5e5 !important;
+}
+
+body.dark-mode .rdp-head_cell {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .rdp-button:hover {
+  background-color: #1e3a8a !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .rdp-day_selected {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+body.dark-mode .rdp-day_today {
+  background-color: #1e3a8a !important;
+  color: #93c5fd !important;
+  border-color: #3b82f6 !important;
+}
+
+/* Stok yönetimi - Ürün detay modal açıklama bölümü dark mode */
+body.dark-mode .bg-blue-50 {
+  background-color: #1a1a2e !important;
+}
+
+body.dark-mode .border-blue-200 {
+  border-color: #4a5568 !important;
+}
+
+/* Muted ve background renkleri dark mode */
+body.dark-mode .bg-muted {
+  background-color: #374151 !important;
+}
+
+body.dark-mode .text-muted-foreground {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .bg-background {
+  background-color: #1f1f1f !important;
+}
+
+body.dark-mode .text-foreground {
+  color: #ffffff !important;
+}
+
+/* Raporlar - Tabs dark mode - Çok spesifik selector'lar */
+body.dark-mode div[role="tablist"] {
+  background-color: #374151 !important;
+  border: 1px solid #4b5563 !important;
+}
+
+body.dark-mode div[role="tablist"] button[role="tab"] {
+  color: #9ca3af !important;
+  background-color: transparent !important;
+}
+
+body.dark-mode div[role="tablist"] button[role="tab"][data-state="active"],
+body.dark-mode div[role="tablist"] button[aria-selected="true"] {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.4) !important;
+  border: none !important;
+}
+
+body.dark-mode div[role="tablist"] button[role="tab"]:hover:not([data-state="active"]) {
+  background-color: #4b5563 !important;
+  color: #e5e7eb !important;
+}
+
+/* Raporlar sayfası özel tabs - Ekstra spesifik */
+body.dark-mode .reports-tabs-list {
+  background-color: #374151 !important;
+  border: 1px solid #4b5563 !important;
+  padding: 4px !important;
+}
+
+body.dark-mode .reports-tab-trigger {
+  color: #9ca3af !important;
+  background-color: transparent !important;
+  transition: all 0.2s !important;
+}
+
+body.dark-mode .reports-tab-trigger[data-state="active"] {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.5) !important;
+}
+
+body.dark-mode .reports-tab-trigger:hover:not([data-state="active"]) {
+  background-color: #4b5563 !important;
+  color: #e5e7eb !important;
+}
+
+/* Login Şifre Gösterme Butonu - Gri Kutucuk Sorunu Çözümü */
+[data-testid="toggle-password-btn"],
+button[aria-label="Şifreyi göster"],
+button[aria-label="Şifreyi gizle"] {
+  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-height: unset !important;
+  min-width: unset !important;
+  padding: 4px !important;
+}
+
+body.dark-mode [data-testid="toggle-password-btn"],
+body.dark-mode button[aria-label="Şifreyi göster"],
+body.dark-mode button[aria-label="Şifreyi gizle"] {
+  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode [data-testid="toggle-password-btn"]:hover,
+body.dark-mode button[aria-label="Şifreyi göster"]:hover,
+body.dark-mode button[aria-label="Şifreyi gizle"]:hover {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* PWA Banner Kapatma Butonu - Gri Kutucuk Sorunu Çözümü */
+[aria-label="Kapat"] {
+  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode [aria-label="Kapat"] {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+body.dark-mode [aria-label="Kapat"]:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dialog Modal Kapatma Butonları - X butonları */
+button[aria-label="Close"],
+[role="dialog"] button[type="button"]:has(svg) {
+  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode button[aria-label="Close"],
+body.dark-mode [role="dialog"] button[type="button"]:has(svg) {
+  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode button[aria-label="Close"]:hover,
+body.dark-mode [role="dialog"] button[type="button"]:has(svg):hover {
+  background-color: transparent !important;
+}
+
+/* Modal içindeki close butonları - Sadece X butonları için */
+[role="dialog"] button[aria-label="Close"],
+[role="dialog"] button[type="button"]:has(svg.lucide-x) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  min-height: auto !important;
+  min-width: auto !important;
+}
+
+body.dark-mode [role="dialog"] button[aria-label="Close"],
+body.dark-mode [role="dialog"] button[type="button"]:has(svg.lucide-x) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+body.dark-mode [role="dialog"] button[aria-label="Close"]:hover,
+body.dark-mode [role="dialog"] button[type="button"]:has(svg.lucide-x):hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Modal içindeki form butonları - Gradient korunmalı */
+body.dark-mode [role="dialog"] button[type="submit"],
+body.dark-mode [role="dialog"] button[class*="from-blue"] {
+  /* Gradient butonların stilini koru, override etme */
+}
+
+/* Radix UI Dialog Close Button - En spesifik selector */
+button[data-radix-collection-item],
+button[type="button"][class*="absolute"][class*="right"],
+[data-radix-dialog-close] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-width: unset !important;
+  min-height: unset !important;
+}
+
+body.dark-mode button[data-radix-collection-item],
+body.dark-mode button[type="button"][class*="absolute"][class*="right"],
+body.dark-mode [data-radix-dialog-close] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
