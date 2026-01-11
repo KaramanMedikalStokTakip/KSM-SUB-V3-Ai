@@ -131,7 +131,7 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "@google/generative-ai kütüphanesi eklendi. Ürün açıklaması üretmek için Gemini API kullanılıyor."
+        comment: "@google/genai kütüphanesi (v1.9.0) eklendi. Gemini 2.5 Flash modeli kullanılıyor. Test başarılı: Ürün açıklaması üretimi çalışıyor."
 
   - task: "API.js güncelleme - Backend çağrısı kaldırma"
     implemented: true
