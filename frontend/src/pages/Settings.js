@@ -502,8 +502,8 @@ function Settings() {
               <span className="font-medium">Karaman Sağlık Medikal</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Platform:</span>
-              <span className="font-medium">Emergent.sh</span>
+              <span className="text-gray-600">Tasarlayan:</span>
+              <span className="font-medium">SüLeYMaN</span>
             </div>
           </div>
         </CardContent>
