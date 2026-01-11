@@ -618,16 +618,17 @@ function Stock() {
             </Button>
           </div>
           {user?.role === 'yönetici' && (
-            <Dialog open={dialogOpen} onOpenChange={(open) => {
-              setDialogOpen(open);
-              if (!open) resetForm();
-            }}>
-              <DialogTrigger asChild>
-                <Button data-testid="add-product-btn">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Yeni Ürün
-                </Button>
-              </DialogTrigger>
+            <>
+              <Dialog open={dialogOpen} onOpenChange={(open) => {
+                setDialogOpen(open);
+                if (!open) resetForm();
+              }}>
+                <DialogTrigger asChild>
+                  <Button data-testid="add-product-btn">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Yeni Ürün
+                  </Button>
+                </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{editMode ? 'Ürün Düzenle' : 'Yeni Ürün Ekle'}</DialogTitle>
