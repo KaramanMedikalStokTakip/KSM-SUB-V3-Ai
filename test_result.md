@@ -112,17 +112,17 @@ user_problem_statement: |
      - Sadece admin kullanıcılar için
 
 backend:
-  - task: "Backend klasörü kaldırma"
+  - task: "KSM-SUB-V3-main klasörü silme"
     implemented: true
     working: true
-    file: "/app/backend (deleted)"
+    file: "/app/KSM-SUB-V3-main (deleted)"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Backend klasörü ve tüm dosyaları başarıyla silindi. Artık sadece frontend Supabase ile çalışıyor."
+        comment: "KSM-SUB-V3-main klasörü (2.5MB) başarıyla silindi. Eski backend ve frontend yedek dosyalarıydı, artık gerekli değil."
 
 frontend:
   - task: "Gemini AI entegrasyonu"
