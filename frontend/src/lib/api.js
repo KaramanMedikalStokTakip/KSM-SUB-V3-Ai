@@ -464,7 +464,7 @@ export const getCustomerPurchases = async (customerId) => {
 // SALES FUNCTIONS
 // ============================================
 
-export const getAllSales = async (startDate = null, endDate = null) => {
+export const getAllSales = async (startDate = null, endDate = null, branch = null) => {
   let query = supabase
     .from('sales')
     .select('*')
@@ -474,6 +474,11 @@ export const getAllSales = async (startDate = null, endDate = null) => {
     query = query
       .gte('created_at', startDate)
       .lte('created_at', endDate);
+  }
+
+  // Şube filtresi ekle
+  if (branch) {
+    query = query.eq('branch', branch);
   }
 
   const { data, error } = await query;
