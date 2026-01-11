@@ -234,6 +234,7 @@ function POS() {
         })),
         total_amount: calculateTotal(),
         discount: discount,
+        final_amount: calculateFinalAmount(),
         payment_method: paymentMethod
       };
 
