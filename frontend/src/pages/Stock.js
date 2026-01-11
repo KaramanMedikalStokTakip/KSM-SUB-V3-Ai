@@ -1440,6 +1440,226 @@ function Stock() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Bulk Price Update Dialog */}
+      <Dialog open={bulkPriceDialogOpen} onOpenChange={(open) => {
+        setBulkPriceDialogOpen(open);
+        if (!open) resetBulkPriceForm();
+      }}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-green-700">
+              💰 Toplu Fiyat Güncelleme
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            {/* Filters Section */}
+            <div className="space-y-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-800">
+                  <AlertCircle className="w-4 h-4 inline mr-2" />
+                  En az bir filtre kriteri seçmelisiniz (Kategori veya Marka)
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Kategori Filtresi</Label>
+                  <select
+                    value={bulkPriceFilters.category}
+                    onChange={(e) => setBulkPriceFilters({ ...bulkPriceFilters, category: e.target.value })}
+                    className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="">Tüm Kategoriler</option>
+                    {medicalCategories.map(cat => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1">Boş bırakılırsa tüm kategoriler</p>
+                </div>
+
+                <div>
+                  <Label>Marka Filtresi</Label>
+                  <Input
+                    value={bulkPriceFilters.brand}
+                    onChange={(e) => setBulkPriceFilters({ ...bulkPriceFilters, brand: e.target.value })}
+                    placeholder="Marka adı (kısmi eşleşme)"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Boş bırakılırsa tüm markalar</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Price Type Selection */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hangi Fiyatı Güncellemek İstiyorsunuz?</Label>
+              <div className="space-y-2">
+                <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="priceType"
+                    value="purchase"
+                    checked={bulkPriceType === 'purchase'}
+                    onChange={(e) => setBulkPriceType(e.target.value)}
+                    className="w-4 h-4"
+                  />
+                  <div>
+                    <span className="font-medium">Sadece Alış Fiyatı</span>
+                    <p className="text-xs text-gray-500">Ürünlerin alış fiyatları güncellenecek</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="priceType"
+                    value="sale"
+                    checked={bulkPriceType === 'sale'}
+                    onChange={(e) => setBulkPriceType(e.target.value)}
+                    className="w-4 h-4"
+                  />
+                  <div>
+                    <span className="font-medium">Sadece Satış Fiyatı</span>
+                    <p className="text-xs text-gray-500">Ürünlerin satış fiyatları güncellenecek</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="priceType"
+                    value="both"
+                    checked={bulkPriceType === 'both'}
+                    onChange={(e) => setBulkPriceType(e.target.value)}
+                    className="w-4 h-4"
+                  />
+                  <div>
+                    <span className="font-medium">Her İkisi de</span>
+                    <p className="text-xs text-gray-500">Hem alış hem satış fiyatları güncellenecek</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Percentage Input */}
+            <div>
+              <Label className="text-base font-semibold mb-2 block">Yüzdelik Değişim</Label>
+              <div className="flex items-center gap-4">
+                <Input
+                  type="number"
+                  value={bulkPercentage}
+                  onChange={(e) => setBulkPercentage(parseFloat(e.target.value) || 0)}
+                  placeholder="Örn: 10 (artış için) veya -5 (indirim için)"
+                  className="flex-1"
+                  step="0.1"
+                />
+                <span className="text-2xl font-bold text-gray-600">%</span>
+              </div>
+              <div className="mt-2 space-y-1">
+                <p className="text-xs text-gray-600">
+                  • Pozitif değer: Fiyat <span className="font-semibold text-green-600">artışı</span> (örn: +10% için 10 yazın)
+                </p>
+                <p className="text-xs text-gray-600">
+                  • Negatif değer: Fiyat <span className="font-semibold text-red-600">indirimi</span> (örn: -5% için -5 yazın)
+                </p>
+              </div>
+            </div>
+
+            {/* Preview Button */}
+            <Button 
+              onClick={handleBulkPreview}
+              disabled={bulkPreviewLoading}
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              size="lg"
+            >
+              {bulkPreviewLoading ? 'Hesaplanıyor...' : '🔍 Önizleme Göster'}
+            </Button>
+
+            {/* Preview Results */}
+            {bulkPreview && (
+              <div className="space-y-4 border-t pt-4">
+                <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-4">
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">📊 Önizleme Sonuçları</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm text-gray-600">Etkilenecek Ürün Sayısı</p>
+                      <p className="text-3xl font-bold text-green-600">{bulkPreview.affectedCount}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">Yüzdelik Değişim</p>
+                      <p className={`text-3xl font-bold ${bulkPreview.percentageChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        {bulkPreview.percentageChange >= 0 ? '+' : ''}{bulkPreview.percentageChange}%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Example Products */}
+                {bulkPreview.examples && bulkPreview.examples.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-gray-700 mb-3">Örnek Ürünler (İlk 5)</h4>
+                    <div className="space-y-2">
+                      {bulkPreview.examples.map((example, index) => (
+                        <div key={example.id} className="bg-white border rounded-lg p-4 space-y-2">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <p className="font-medium text-gray-800">{example.name}</p>
+                              <p className="text-sm text-gray-500">{example.brand} - {example.category}</p>
+                            </div>
+                            <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">#{index + 1}</span>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-4 pt-2 border-t">
+                            {example.old_purchase_price !== undefined && (
+                              <div>
+                                <p className="text-xs text-gray-500 mb-1">Alış Fiyatı</p>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm line-through text-gray-400">₺{example.old_purchase_price.toFixed(2)}</span>
+                                  <span className="text-sm font-bold text-green-600">→ ₺{example.new_purchase_price.toFixed(2)}</span>
+                                </div>
+                              </div>
+                            )}
+                            
+                            {example.old_sale_price !== undefined && (
+                              <div>
+                                <p className="text-xs text-gray-500 mb-1">Satış Fiyatı</p>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm line-through text-gray-400">₺{example.old_sale_price.toFixed(2)}</span>
+                                  <span className="text-sm font-bold text-blue-600">→ ₺{example.new_sale_price.toFixed(2)}</span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Confirm Update Button */}
+                <div className="flex gap-2 pt-4 border-t">
+                  <Button
+                    onClick={handleBulkUpdate}
+                    disabled={bulkUpdateLoading}
+                    className="flex-1 bg-green-600 hover:bg-green-700"
+                    size="lg"
+                  >
+                    {bulkUpdateLoading ? 'Güncelleniyor...' : `✓ Onayla ve ${bulkPreview.affectedCount} Ürünü Güncelle`}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setBulkPriceDialogOpen(false)}
+                    disabled={bulkUpdateLoading}
+                  >
+                    İptal
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
