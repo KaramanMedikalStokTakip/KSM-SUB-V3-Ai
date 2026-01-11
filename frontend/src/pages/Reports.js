@@ -484,8 +484,8 @@ function Reports() {
                           <td className="p-2">{product.brand}</td>
                           <td className="p-2">{product.category}</td>
                           <td className="p-2 text-right">{product.quantity} {product.unit_type}</td>
-                          <td className="p-2 text-right">₺{product.purchase_price.toFixed(2)}</td>
-                          <td className="p-2 text-right font-semibold">₺{product.stock_value.toFixed(2)}</td>
+                          <td className="p-2 text-right">{formatCurrency(product.purchase_price)}</td>
+                          <td className="p-2 text-right font-semibold">{formatCurrency(product.stock_value)}</td>
                           <td className="p-2 text-center">
                             <span className={`px-2 py-1 rounded text-xs ${
                               product.status === 'Düşük Stok' 
