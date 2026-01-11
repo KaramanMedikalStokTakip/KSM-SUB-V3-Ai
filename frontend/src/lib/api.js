@@ -593,34 +593,60 @@ export const deleteCalendarEvent = async (eventId) => {
 // REPORTS FUNCTIONS
 // ============================================
 
-export const getDashboardStats = async () => {
-  // Get total products
-  const { count: totalProducts } = await supabase
+export const getDashboardStats = async (branch = null) => {
+  // Get total products (branch filter if provided)
+  let productsQuery = supabase
     .from('products')
     .select('*', { count: 'exact', head: true });
+  
+  if (branch) {
+    productsQuery = productsQuery.eq('branch', branch);
+  }
+  
+  const { count: totalProducts } = await productsQuery;
 
   // Get low stock count (fetch all and filter in JS since Supabase doesn't support column comparison)
-  const { data: allProducts } = await supabase
+  let allProductsQuery = supabase
     .from('products')
-    .select('id, quantity, min_quantity');
+    .select('id, quantity, min_quantity, branch');
+  
+  if (branch) {
+    allProductsQuery = allProductsQuery.eq('branch', branch);
+  }
+  
+  const { data: allProducts } = await allProductsQuery;
   
   const lowStockProducts = allProducts?.filter(p => p.quantity <= p.min_quantity) || [];
 
-  // Get today's sales
+  // Get today's sales (branch filter if provided)
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const { data: todaySales } = await supabase
+  
+  let todaySalesQuery = supabase
     .from('sales')
     .select('final_amount')
     .gte('created_at', today.toISOString());
+  
+  if (branch) {
+    todaySalesQuery = todaySalesQuery.eq('branch', branch);
+  }
+  
+  const { data: todaySales } = await todaySalesQuery;
 
-  // Get week sales
+  // Get week sales (branch filter if provided)
   const weekAgo = new Date(today);
   weekAgo.setDate(weekAgo.getDate() - 7);
-  const { data: weekSales } = await supabase
+  
+  let weekSalesQuery = supabase
     .from('sales')
     .select('final_amount')
     .gte('created_at', weekAgo.toISOString());
+  
+  if (branch) {
+    weekSalesQuery = weekSalesQuery.eq('branch', branch);
+  }
+  
+  const { data: weekSales } = await weekSalesQuery;
 
   const todayRevenue = todaySales?.reduce((sum, sale) => sum + parseFloat(sale.final_amount), 0) || 0;
   const weekRevenue = weekSales?.reduce((sum, sale) => sum + parseFloat(sale.final_amount), 0) || 0;
