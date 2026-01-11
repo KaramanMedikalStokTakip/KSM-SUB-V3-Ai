@@ -218,15 +218,51 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: |
-      Backend başarıyla kaldırıldı ve uygulama Supabase + Gemini AI ile çalışacak şekilde yapılandırıldı.
+      ✅ İlk görev tamamlandı: KSM-SUB-V3-main klasörü silindi
+      ✅ İkinci görev tamamlandı: Toplu Fiyat Güncelleme özelliği eklendi
       
       Yapılan değişiklikler:
-      1. Backend klasörü ve backend_test.py silindi
-      2. @google/generative-ai kütüphanesi eklendi
-      3. /app/frontend/src/lib/gemini.js dosyası oluşturuldu
-      4. api.js'deki generateProductDescription backend yerine Gemini kullanıyor
-      5. App.js Supabase Auth ile entegre edildi
-      6. .env dosyasında Gemini API key tanımlandı, backend URL kaldırıldı
-      7. Frontend servisi başarıyla çalışıyor
       
-      Sonraki adım: Kullanıcının gerçek Supabase bilgilerini alıp test etmek.
+      1. KSM-SUB-V3-main klasörü:
+         - Klasör içeriği incelendi (eski backend + frontend yedekleri)
+         - Gereksiz olduğu belirlendi ve tamamen silindi (2.5MB)
+      
+      2. Toplu Fiyat Güncelleme Özelliği:
+         
+         Backend API (/app/frontend/src/lib/api.js):
+         - previewBulkPriceUpdate() fonksiyonu eklendi
+         - bulkUpdateProductPrices() fonksiyonu eklendi
+         - Kategori ve marka filtreleme desteği
+         - Yüzdelik hesaplama (pozitif = artış, negatif = indirim)
+         - Hem purchase_price hem sale_price güncellenebiliyor
+         
+         Frontend UI (/app/frontend/src/pages/Stock.js):
+         - "Toplu Fiyat Güncelle" butonu eklendi (sadece admin görür)
+         - Kapsamlı modal dialog tasarlandı:
+           * Kategori dropdown (tüm medikal kategoriler)
+           * Marka text input (kısmi eşleşme)
+           * Fiyat türü seçimi (Alış/Satış/Her İkisi) - radio buttons
+           * Yüzde girişi (pozitif/negatif değerler)
+           * Önizleme butonu → Kaç ürün etkilenir + ilk 5 örnek gösterir
+           * Onayla ve Güncelle butonu (onay sonrası)
+         - Kullanıcı dostu UI/UX (renkli, açıklayıcı)
+         - Alert/toast mesajları
+      
+      3. Frontend servisi:
+         - Başarıyla yeniden başlatıldı
+         - Webpack compiled successfully
+         - Port 3000'de RUNNING
+      
+      Test Senaryoları:
+      1. Admin kullanıcı ile giriş yapın
+      2. Stock sayfasına gidin
+      3. "Toplu Fiyat Güncelle" butonunu görüntüleyin (sadece admin)
+      4. Kategori ve/veya marka filtresi seçin
+      5. Fiyat türü seçin (alış/satış/her ikisi)
+      6. Yüzde girin (örn: 10 veya -5)
+      7. "Önizleme Göster" butonuna tıklayın
+      8. Etkilenecek ürün sayısını ve örnek hesaplamaları görün
+      9. "Onayla ve X Ürünü Güncelle" butonuna tıklayın
+      10. Ürün listesini yenileyin ve fiyatların güncellendiğini kontrol edin
+      
+      Sonraki adım: Kullanıcının test etmesi ve feedback vermesi.
