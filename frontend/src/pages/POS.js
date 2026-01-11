@@ -30,9 +30,18 @@ function POS() {
 
   const addProductToCart = async (barcode) => {
     try {
-      const result = await getProductByBarcode(barcode);
+      const result = await getProductByBarcode(barcode, user?.branch);
 
-      // Eğer birden fazla ürün varsa (farklı şubelerde)
+      // Eğer ürün başka şubedeyse uyarı göster
+      if (result.notInBranch) {
+        toast.error(result.message, {
+          duration: 5000,
+          icon: '⚠️'
+        });
+        return;
+      }
+
+      // Eğer birden fazla ürün varsa (farklı şubelerde) - Bu durumda gereksiz ama yine de kalsın
       if (result.multiple) {
         setMultipleProducts(result.products);
         setMultipleProductsDialog(true);
