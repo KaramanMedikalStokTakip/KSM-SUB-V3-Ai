@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { getDashboardStats, getLowStockProducts, getProductByBarcode } from '../lib/api';
+import { formatCurrency } from '../lib/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
 import { Button } from '../components/ui/button';
