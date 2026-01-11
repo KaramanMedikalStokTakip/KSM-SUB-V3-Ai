@@ -245,7 +245,8 @@ function POS() {
         total_amount: calculateTotal(),
         discount: discount,
         final_amount: calculateFinalAmount(),
-        payment_method: paymentMethod
+        payment_method: paymentMethod,
+        branch: user?.branch || 'KARAMAN Şubesi' // Kullanıcının şubesini ekle
       };
 
       await createSale(saleData);
