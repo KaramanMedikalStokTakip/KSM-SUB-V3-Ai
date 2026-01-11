@@ -86,10 +86,11 @@ Supabase Auth entegrasyonu kullanılıyor:
 
 ## 🤖 AI Özellikleri
 
-Gemini API ile:
+Gemini 2.5 Flash API ile:
 - Otomatik ürün açıklaması üretimi
 - Medikal ürün bilgilendirmesi
 - Türkçe dil desteği
+- En son AI teknolojisi (Gemini 2.5)
 
 ## 📱 PWA
 
