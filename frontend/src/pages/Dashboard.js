@@ -375,7 +375,7 @@ function Dashboard() {
                     <p><span className="font-medium">Barkod:</span> {foundProduct.barcode}</p>
                     <p><span className="font-medium">Şube:</span> <span className="text-blue-600">📍 {foundProduct.branch || 'MUT Şubesi'}</span></p>
                     <p><span className="font-medium">Stok:</span> <span className={foundProduct.quantity <= foundProduct.min_quantity ? 'text-red-600' : 'text-green-600'}>{foundProduct.quantity} {foundProduct.unit_type || 'adet'}</span></p>
-                    <p><span className="font-medium">Satış Fiyatı:</span> <span className="text-blue-600 font-bold">₺{foundProduct.sale_price.toFixed(2)}</span></p>
+                    <p><span className="font-medium">Satış Fiyatı:</span> <span className="text-blue-600 font-bold">{formatCurrency(foundProduct.sale_price)}</span></p>
                     {foundProduct.description && (
                       <p className="mt-2 text-gray-600">{foundProduct.description}</p>
                     )}
