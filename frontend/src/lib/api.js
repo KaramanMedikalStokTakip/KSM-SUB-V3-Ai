@@ -54,7 +54,7 @@ export const loginUser = async (username, password) => {
   }
 };
 
-export const registerUser = async (username, email, password, role = 'depo') => {
+export const registerUser = async (username, email, password, role = 'depo', branch = 'KARAMAN Şubesi') => {
   // Hash password using bcrypt.js
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -66,10 +66,11 @@ export const registerUser = async (username, email, password, role = 'depo') => 
         username,
         email,
         password: hashedPassword,
-        role
+        role,
+        branch
       }
     ])
-    .select('id, username, email, role, created_at')
+    .select('id, username, email, role, branch, created_at')
     .single();
 
   if (error) {
