@@ -383,16 +383,16 @@ function POS() {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Ara Toplam:</span>
-                  <span className="font-medium">₺{calculateTotal().toFixed(2)}</span>
+                  <span className="font-medium">{formatCurrency(calculateTotal())}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>İndirim:</span>
-                  <span className="font-medium text-red-600">-₺{discount.toFixed(2)}</span>
+                  <span className="font-medium text-red-600">-{formatCurrency(discount)}</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between text-lg font-bold">
                   <span>Toplam:</span>
-                  <span className="text-green-600" data-testid="final-amount">₺{calculateFinalAmount().toFixed(2)}</span>
+                  <span className="text-green-600" data-testid="final-amount">{formatCurrency(calculateFinalAmount())}</span>
                 </div>
               </div>
 
