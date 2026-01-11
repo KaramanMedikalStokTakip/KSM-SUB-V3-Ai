@@ -564,7 +564,7 @@ function Reports() {
                       </div>
                       <div className="text-right">
                         <p className="font-semibold text-blue-600">{item.total_quantity} adet</p>
-                        <p className="text-sm text-gray-500">₺{item.total_revenue?.toFixed(2)}</p>
+                        <p className="text-sm text-gray-500">{formatCurrency(item.total_revenue || 0)}</p>
                       </div>
                     </div>
                   ))}
