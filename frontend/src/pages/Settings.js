@@ -158,7 +158,8 @@ function Settings() {
       username: u.username,
       email: u.email || '',
       password: '', // Boş bırak - değiştirilirse doldurulur
-      role: u.role
+      role: u.role,
+      branch: u.branch || 'KARAMAN Şubesi'
     });
     setEditDialogOpen(true);
   };
