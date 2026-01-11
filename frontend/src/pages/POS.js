@@ -480,7 +480,7 @@ function POS() {
                         <h4 className="font-bold text-lg text-gray-800">{product.name}</h4>
                         <p className="text-sm text-gray-600">{product.brand} • {product.category}</p>
                         <div className="flex items-center gap-3 mt-2">
-                          <p className="text-xl text-blue-600 font-bold">₺{product.sale_price.toFixed(2)}</p>
+                          <p className="text-xl text-blue-600 font-bold">{formatCurrency(product.sale_price)}</p>
                           {product.quantity <= 0 && (
                             <span className="bg-red-100 text-red-700 text-xs px-2 py-1 rounded">Stokta Yok</span>
                           )}
