@@ -101,6 +101,7 @@ export const updateUser = async (userId, updates) => {
   if (updates.username) updateData.username = updates.username;
   if (updates.email !== undefined) updateData.email = updates.email;
   if (updates.role) updateData.role = updates.role;
+  if (updates.branch) updateData.branch = updates.branch;
   if (updates.password) {
     // Hash password using bcrypt.js
     updateData.password = await bcrypt.hash(updates.password, 10);
@@ -110,7 +111,7 @@ export const updateUser = async (userId, updates) => {
     .from('users')
     .update(updateData)
     .eq('id', userId)
-    .select('id, username, email, role, created_at')
+    .select('id, username, email, role, branch, created_at')
     .single();
 
   if (error) {
