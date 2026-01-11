@@ -125,13 +125,37 @@ backend:
         comment: "KSM-SUB-V3-main klasörü (2.5MB) başarıyla silindi. Eski backend ve frontend yedek dosyalarıydı, artık gerekli değil."
 
 frontend:
+  - task: "Toplu fiyat güncelleme API fonksiyonları"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/lib/api.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "previewBulkPriceUpdate ve bulkUpdateProductPrices fonksiyonları eklendi. Kategori ve marka filtreleme, yüzdelik hesaplama destekleniyor."
+
+  - task: "Toplu fiyat güncelleme UI"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Stock.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Stock sayfasına 'Toplu Fiyat Güncelle' butonu ve modal eklendi. Kategori/marka filtreleri, fiyat türü seçimi, yüzde girişi, önizleme ve onay mekanizması eklendi. Sadece admin kullanıcılar için görünür."
+
   - task: "Gemini AI entegrasyonu"
     implemented: true
     working: true
     file: "/app/frontend/src/lib/gemini.js"
     stuck_count: 0
-    priority: "high"
-    needs_retesting: true
+    priority: "medium"
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
@@ -142,8 +166,8 @@ frontend:
     working: true
     file: "/app/frontend/src/lib/api.js"
     stuck_count: 0
-    priority: "high"
-    needs_retesting: true
+    priority: "medium"
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
@@ -154,8 +178,8 @@ frontend:
     working: true
     file: "/app/frontend/src/App.js"
     stuck_count: 0
-    priority: "high"
-    needs_retesting: true
+    priority: "medium"
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
@@ -166,7 +190,7 @@ frontend:
     working: true
     file: "/app/frontend/.env"
     stuck_count: 0
-    priority: "high"
+    priority: "medium"
     needs_retesting: false
     status_history:
       - working: true
