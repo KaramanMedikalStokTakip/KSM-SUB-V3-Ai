@@ -205,9 +205,12 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Gemini AI ürün açıklaması üretme testi"
-    - "Supabase Auth giriş/çıkış testi"
-    - "Tüm sayfaların Supabase ile çalışması"
+    - "Toplu fiyat güncelleme - Kategori filtreleme testi"
+    - "Toplu fiyat güncelleme - Marka filtreleme testi"
+    - "Toplu fiyat güncelleme - Önizleme fonksiyonu testi"
+    - "Toplu fiyat güncelleme - Fiyat güncellemesi testi (pozitif yüzde)"
+    - "Toplu fiyat güncelleme - Fiyat güncellemesi testi (negatif yüzde)"
+    - "Admin yetkisi kontrolü (sadece admin görebilir)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
