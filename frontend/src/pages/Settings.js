@@ -353,6 +353,21 @@ function Settings() {
                           </SelectContent>
                         </Select>
                       </div>
+                      <div>
+                        <Label>Şube *</Label>
+                        <Select 
+                          value={newUser.branch} 
+                          onValueChange={(value) => setNewUser({ ...newUser, branch: value })}
+                        >
+                          <SelectTrigger data-testid="new-branch-select">
+                            <SelectValue placeholder="Şube seçin" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="KARAMAN Şubesi">KARAMAN Şubesi</SelectItem>
+                            <SelectItem value="MUT Şubesi">MUT Şubesi</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                       <Button type="submit" className="w-full" data-testid="submit-user-btn">
                         Kullanıcı Ekle
                       </Button>
