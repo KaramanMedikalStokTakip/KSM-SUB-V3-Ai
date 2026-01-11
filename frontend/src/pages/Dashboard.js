@@ -410,7 +410,7 @@ function Dashboard() {
                           </div>
                           <h4 className="font-bold text-lg text-gray-800">{product.name}</h4>
                           <p className="text-sm text-gray-600">{product.brand} • {product.category}</p>
-                          <p className="text-lg text-blue-600 font-bold mt-2">₺{product.sale_price.toFixed(2)}</p>
+                          <p className="text-lg text-blue-600 font-bold mt-2">{formatCurrency(product.sale_price)}</p>
                         </div>
                         {product.image_url && (
                           <img 
