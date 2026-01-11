@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../App';
 import { toast } from 'sonner';
-import { getAllProducts, createProduct, updateProduct, deleteProduct, generateProductDescription, comparePrices } from '../lib/api';
+import { getAllProducts, createProduct, updateProduct, deleteProduct, generateProductDescription, comparePrices, previewBulkPriceUpdate, bulkUpdateProductPrices } from '../lib/api';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { Label } from '../components/ui/label';
-import { Plus, Edit, Trash2, Sparkles, Upload, Grid3x3, List, Search, Camera, X, Filter, AlertCircle } from 'lucide-react';
+import { Plus, Edit, Trash2, Sparkles, Upload, Grid3x3, List, Search, Camera, X, Filter, AlertCircle, DollarSign } from 'lucide-react';
 import { Html5Qrcode } from 'html5-qrcode';
 
 function Stock() {
