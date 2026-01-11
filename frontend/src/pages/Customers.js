@@ -251,11 +251,11 @@ function Customers() {
                 <Button
                   className="flex-1"
                   variant="outline"
-                  onClick={() => viewPurchases(customer)}
-                  data-testid={`view-purchases-${customer.id}`}
+                  onClick={() => openEditDialog(customer)}
+                  data-testid={`edit-customer-${customer.id}`}
                 >
-                  <Eye className="w-4 h-4 mr-2" />
-                  Satın Almalar
+                  <Edit className="w-4 h-4 mr-2" />
+                  Bilgileri Düzenle
                 </Button>
                 {user?.role === 'yönetici' && (
                   <Button
