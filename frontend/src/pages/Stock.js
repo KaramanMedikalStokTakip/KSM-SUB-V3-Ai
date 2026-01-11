@@ -843,6 +843,17 @@ function Stock() {
               </form>
             </DialogContent>
           </Dialog>
+              
+              {/* Bulk Price Update Button */}
+              <Button 
+                variant="outline"
+                onClick={() => setBulkPriceDialogOpen(true)}
+                className="bg-green-50 hover:bg-green-100 text-green-700 border-green-300"
+              >
+                <DollarSign className="w-4 h-4 mr-2" />
+                Toplu Fiyat Güncelle
+              </Button>
+            </>
           )}
         </div>
       </div>
