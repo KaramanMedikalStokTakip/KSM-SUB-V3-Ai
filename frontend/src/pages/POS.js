@@ -328,7 +328,7 @@ function POS() {
                             <Plus className="w-4 h-4" />
                           </Button>
                         </div>
-                        <p className="w-24 text-right font-semibold">₺{(item.sale_price * item.cartQuantity).toFixed(2)}</p>
+                        <p className="w-24 text-right font-semibold">{formatCurrency(item.sale_price * item.cartQuantity)}</p>
                         <Button
                           size="sm"
                           variant="ghost"
