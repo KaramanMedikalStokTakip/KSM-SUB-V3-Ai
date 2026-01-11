@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../App';
 import { toast } from 'sonner';
 import { getDashboardStats, getLowStockProducts, getProductByBarcode } from '../lib/api';
 import { formatCurrency } from '../lib/utils';
