@@ -77,13 +77,15 @@ function Settings() {
   const [newUser, setNewUser] = useState({
     username: '',
     password: '',
-    role: 'depo'
+    role: 'depo',
+    branch: 'KARAMAN Şubesi'
   });
   const [editUser, setEditUser] = useState({
     username: '',
     email: '',
     password: '',
-    role: 'depo'
+    role: 'depo',
+    branch: 'KARAMAN Şubesi'
   });
 
   const fetchUsers = async () => {
