@@ -88,7 +88,7 @@ export const registerUser = async (username, email, password, role = 'depo', bra
 export const getAllUsers = async () => {
   const { data, error } = await supabase
     .from('users')
-    .select('id, username, email, role, created_at')
+    .select('id, username, email, role, branch, created_at')
     .order('created_at', { ascending: false });
 
   if (error) throw error;
