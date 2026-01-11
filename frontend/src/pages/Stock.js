@@ -59,7 +59,7 @@ function Stock() {
     min_quantity: 0,
     brand: '',
     category: '',
-    branch: 'MUT Şubesi',
+    branch: user?.branch || 'KARAMAN Şubesi', // Kullanıcının şubesini default yap
     purchase_price: 0,
     sale_price: 0,
     description: '',
