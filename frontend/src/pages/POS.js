@@ -12,6 +12,7 @@ import { ShoppingCart, Trash2, Minus, Plus, Barcode, Camera, AlertCircle } from 
 import { Html5Qrcode } from 'html5-qrcode';
 
 function POS() {
+  const { user } = useAuth();
   const [cart, setCart] = useState([]);
   const [barcodeInput, setBarcodeInput] = useState('');
   const [discount, setDiscount] = useState(0);
