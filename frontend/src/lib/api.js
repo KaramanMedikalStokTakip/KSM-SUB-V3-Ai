@@ -200,13 +200,20 @@ export const getProductByBarcode = async (barcode, userBranch = null) => {
   return { multiple: true, products: data };
 };
 
-export const getLowStockProducts = async () => {
+export const getLowStockProducts = async (branch = null) => {
   // Supabase doesn't support column-to-column comparison in filters
   // So we fetch all products and filter in JavaScript
-  const { data, error } = await supabase
+  let query = supabase
     .from('products')
     .select('*')
     .order('quantity', { ascending: true });
+  
+  // Şube filtresi ekle
+  if (branch) {
+    query = query.eq('branch', branch);
+  }
+  
+  const { data, error } = await query;
 
   if (error) throw error;
   
