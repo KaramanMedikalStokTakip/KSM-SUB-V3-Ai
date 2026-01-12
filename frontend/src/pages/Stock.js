@@ -107,7 +107,9 @@ function Stock() {
 
   const fetchProducts = async () => {
     try {
-      const data = await getAllProducts();
+      // Admin ise tüm ürünleri, değilse sadece kendi şubesinin ürünlerini getir
+      const branchFilter = user?.role === 'yönetici' ? null : user?.branch;
+      const data = await getAllProducts(branchFilter);
       setProducts(data);
       setFilteredProducts(data);
     } catch (error) {
