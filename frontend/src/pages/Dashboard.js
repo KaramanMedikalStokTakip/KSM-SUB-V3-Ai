@@ -48,16 +48,11 @@ function Dashboard() {
       
       const [statsData, lowStockData] = await Promise.all([
         getDashboardStats(branchFilter),
-        getLowStockProducts()
+        getLowStockProducts(branchFilter)
       ]);
       
-      // Eğer admin değilse low stock'u da filtreliyoruz
-      const filteredLowStock = user?.role === 'yönetici' 
-        ? lowStockData 
-        : lowStockData.filter(p => p.branch === user?.branch);
-      
       setStats(statsData);
-      setLowStock(filteredLowStock);
+      setLowStock(lowStockData);
     } catch (error) {
       console.error('Dashboard data fetch error:', error);
       toast.error('Dashboard verileri yüklenemedi');
