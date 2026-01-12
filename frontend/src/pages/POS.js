@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useAuth } from '../App';
 import { toast } from 'sonner';
 import { getProductByBarcode, createSale } from '../lib/api';
 import { formatCurrency } from '../lib/utils';
