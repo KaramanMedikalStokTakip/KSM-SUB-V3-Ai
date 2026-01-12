@@ -591,7 +591,14 @@ function Stock() {
   return (
     <div className="space-y-4 sm:space-y-6" data-testid="stock-page">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">Stok Yönetimi</h1>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">
+          Stok Yönetimi
+          {user?.role !== 'yönetici' && user?.branch && (
+            <span className="text-lg sm:text-xl lg:text-2xl font-normal text-blue-600 ml-2">
+              - {user.branch}
+            </span>
+          )}
+        </h1>
         <div className="flex flex-wrap gap-2 w-full sm:w-auto">
           <Button 
             variant="outline" 
