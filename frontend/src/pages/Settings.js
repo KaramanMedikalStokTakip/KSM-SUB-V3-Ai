@@ -529,7 +529,7 @@ function Settings() {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600">Sürüm:</span>
-              <span className="font-medium">4.1.4</span>
+              <span className="font-medium">4.4.0</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Firma:</span>
