@@ -136,11 +136,18 @@ export const deleteUser = async (userId) => {
 // PRODUCTS FUNCTIONS
 // ============================================
 
-export const getAllProducts = async () => {
-  const { data, error } = await supabase
+export const getAllProducts = async (branch = null) => {
+  let query = supabase
     .from('products')
     .select('*')
     .order('name', { ascending: true });
+
+  // Şube filtresi ekle (admin değilse)
+  if (branch) {
+    query = query.eq('branch', branch);
+  }
+
+  const { data, error } = await query;
 
   if (error) throw error;
   return data;
