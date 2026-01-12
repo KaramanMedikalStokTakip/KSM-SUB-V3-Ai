@@ -265,7 +265,14 @@ function POS() {
 
   return (
     <div className="space-y-6" data-testid="pos-page">
-      <h1 className="text-4xl font-bold text-gray-800">Kasiyer / POS</h1>
+      <h1 className="text-4xl font-bold text-gray-800">
+        Kasiyer / POS
+        {user?.role !== 'yönetici' && user?.branch && (
+          <span className="text-2xl font-normal text-blue-600 ml-2">
+            - {user.branch}
+          </span>
+        )}
+      </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Barcode Scanner & Cart */}
