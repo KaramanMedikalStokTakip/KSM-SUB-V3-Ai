@@ -668,7 +668,7 @@ export const getDashboardStats = async (branch = null) => {
   };
 };
 
-export const getStockReport = async (brand = null, category = null) => {
+export const getStockReport = async (brand = null, category = null, branch = null) => {
   let query = supabase
     .from('products')
     .select('*')
@@ -676,6 +676,7 @@ export const getStockReport = async (brand = null, category = null) => {
 
   if (brand) query = query.ilike('brand', `%${brand}%`);
   if (category) query = query.ilike('category', `%${category}%`);
+  if (branch) query = query.eq('branch', branch);
 
   const { data: products, error } = await query;
   if (error) throw error;
