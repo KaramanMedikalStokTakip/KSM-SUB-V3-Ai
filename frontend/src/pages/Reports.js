@@ -201,7 +201,10 @@ function Reports() {
   const fetchStockReport = async () => {
     setLoading(true);
     try {
-      const data = await getStockReport(selectedBrand || null, selectedCategory || null);
+      // Admin ise şube filtresi yok, değilse kendi şubesi
+      const branchFilter = user?.role === 'yönetici' ? selectedBranch || null : user?.branch;
+      
+      const data = await getStockReport(selectedBrand || null, selectedCategory || null, branchFilter);
       
       // Tarih ve saat bilgisi ekle
       const reportWithTimestamp = {
